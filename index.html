@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Birthstone&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="LANTERN_FAVICON.png" type="image/x-icon">
 
     <style>
@@ -35,20 +36,29 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            width: 100%;
+            width: 90%; /* Ensure text stays within screen */
+            max-width: 600px; /* Prevents text from being too stretched */
             color: white;
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 2.5vw, 1.5rem); /* Responsive font size */
+            word-wrap: break-word; /* Ensure long words don’t overflow */
+            line-height: 1.5; /* Improve readability */
+            padding: 10px;
         }
+
 
         body{
             font-family: "Faculty Glyphic", serif;
+        }
+
+        #signature{
+            font-family: "Birthstone", cursive;
         }
     </style>
 </head>
 <body class="relative bg-gray-800 overflow-hidden h-screen w-screen">
     
     <!-- Text display area -->
-    <div id="textDisplay" class="text-display p-2"></div>
+    <div id="textDisplay" class="text-display"></div>
     
     <!-- Floating Lantern Container -->
     <div id="lanternContainer" class="absolute w-full h-full"></div>
@@ -79,7 +89,16 @@
         function createLantern() {
             if (quotes.length === 0) {
                 if (activeLanterns === 0) {
-                    document.getElementById("textDisplay").innerText = "PARAGRAPH";
+                    document.getElementById("textDisplay").innerHTML = `
+                        To My Beautiful Girl:<br>
+                        Dear Sophia,<br>
+                        It has now been more than a year that we know each other.<br>
+                        I'm so glad we met and I hope we walk this path of life together forever.<br>
+                        Saw all those floating lanterns? You occupy all of my wishes.<br>
+                        <span id="signature">
+                            With Love, your Alexander.
+                        </span>
+                    `;
                 }
                 return;
             }
@@ -106,9 +125,6 @@
             setTimeout(() => {
                 lantern.remove();
                 activeLanterns--;
-                if (quotes.length === 0 && activeLanterns === 0) {
-                    document.getElementById("textDisplay").innerText = "All wishes have been sent.";
-                }
             }, 11000);
         }
         
